@@ -23,3 +23,27 @@ docker run --rm -t -v /path/to/your/extension:/tmp/crx oncletom/crx pack > exten
 ```
 
 The `-v` flag associates your local filesystem with the container filesystem and returns back the binary data to your local standard output.
+
+## Tips
+
+Alias `crx` command so it will use this Docker image. Add the following to your zshrc/bashrc :
+
+```bash
+function crx() {
+  local from_dir, crx_command
+  
+  crx_command="$1"
+  
+  if [ -n "$2" ]; then
+    from_dir=$(cd "${2%/*}" && echo "$PWD/${2##*/}")
+  else
+    from_dir=$(pwd)
+  fi
+
+  set -- ${@:3:$#}
+  
+  docker run --rm -t -v "${from_dir}":/tmp/crx oncletom/crx "${crx_command}" $(if [ -n "$2" ] ; then echo /tmp/crx; fi)
+}
+```
+
+Then just use the `crx` command as you would if it was installed with NPM.
