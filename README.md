@@ -42,7 +42,7 @@ function crx() {
 
   set -- ${@:3:$#}
   
-  docker run --rm -t -v "${from_dir}":/tmp/crx oncletom/crx "${crx_command}" $(if [ -n "$2" ] ; then echo /tmp/crx; fi)
+  docker run --rm -t -v "${from_dir}":/tmp/crx oncletom/crx "${crx_command}" $(if [ -n "$2" ] ; then echo /tmp/crx; fi) $@
 }
 ```
 
