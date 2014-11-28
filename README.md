@@ -30,19 +30,17 @@ Alias `crx` command so it will use this Docker image. Add the following to your 
 
 ```bash
 function crx() {
-  local from_dir, crx_command
+  local from_dir crx_command
   
   crx_command="$1"
   
   if [ -n "$2" ]; then
     from_dir=$(cd "${2%/*}" && echo "$PWD/${2##*/}")
-  else
-    from_dir=$(pwd)
   fi
 
   set -- ${@:3:$#}
   
-  docker run --rm -t -v "${from_dir}":/tmp/crx oncletom/crx "${crx_command}" $(if [ -n "$2" ] ; then echo /tmp/crx; fi) $@
+  docker run --rm -t -v "${from_dir}":/tmp/crx oncletom/crx "${crx_command}" $(if [ -n "${from_dir}" ] ; then echo /tmp/crx; fi) $@
 }
 ```
 
