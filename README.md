@@ -40,7 +40,7 @@ function crx() {
 
   set -- ${@:3:$#}
   
-  docker run --rm -t -v "${from_dir}":/tmp/crx oncletom/crx "${crx_command}" $(if [ -n "${from_dir}" ] ; then echo /tmp/crx; fi) $@
+  docker run --rm -t -v $(if [ -n "${from_dir}" ]; then echo "${from_dir}"; else echo $(pwd); fi):/tmp/crx oncletom/crx "${crx_command}" $(if [ -n "${from_dir}" ] ; then echo /tmp/crx; fi) $@
 }
 ```
 
