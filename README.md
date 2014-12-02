@@ -44,4 +44,11 @@ function crx() {
 }
 ```
 
+Or even simpler:
+
+```bash
+wget https://raw.githubusercontent.com/chadrien/crx-docker/bb85e61915a6271061a56b26224240c1b0395f3c/crx-alias.sh
+source crx-alias.sh
+```
+
 Then just use the `crx` command as you would if it was installed with NPM.
